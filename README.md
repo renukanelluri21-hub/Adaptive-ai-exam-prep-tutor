@@ -1,41 +1,117 @@
-# Adaptive AI Exam Prep Tutor - Class 10 Physics (Electricity)
+# Adaptive AI Exam Prep Tutor
 
-A tutor that tracks what each student actually understands, finds *why* they go wrong, and decides what to teach next.
+An intelligent, adaptive learning platform that tracks what each student actually understands, identifies why they make mistakes, and determines what they should learn next.
 
-## Run it
+## Problem
+
+Traditional AI tutors answer questions but often fail to track a student's understanding at the individual concept level.
+
+Our solution creates a personalized learning experience using concept mastery tracking, reasoning-based misconception detection, adaptive question selection, and spaced repetition.
+
+## Key Features
+
+- **Diagnostic Assessment:** Evaluates initial student knowledge across seven Physics concepts.
+- **Concept Knowledge Graph:** Represents concepts and their prerequisites, with mastery-based visualizations.
+- **Learner Model:** Updates individual concept mastery after every answer.
+- **Adaptive Question Generation:** Selects targeted questions based on weaknesses, prerequisites, and difficulty.
+- **Misconception Detection:** Analyses student reasoning, identifies known misconceptions, and flags correct answers supported by flawed reasoning.
+- **Spaced Repetition:** Schedules personalized revision sessions.
+- **Teacher Dashboard:** Displays class-wide learning gaps, mastery heatmaps, misconceptions, and student performance.
+
+## Technology Stack
+
+- Python
+- Streamlit
+- SQLite
+- Pandas
+- Plotly
+- NetworkX
+- Optional Claude API for reasoning classification
+
+## Installation and Setup
+
+Clone the repository:
+
+```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+cd adaptive-ai-exam-prep-tutor
+```
+
+Create a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it on Windows:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
+
 ```bash
 pip install -r requirements.txt
+```
+
+Run the application:
+
+```bash
 streamlit run app.py
 ```
-Teacher PIN: `teacher123` (override with the `TEACHER_PIN` environment variable).
-existing `tutor.db` is migrated automatically.
 
-## How each requirement is met
-| Requirement | Where | What it does |
+## Teacher Access
+
+Default development PIN: `teacher123`.
+
+For deployment, configure a secure `TEACHER_PIN` environment variable and replace the default PIN. Do not use the development PIN in a public deployment.
+
+## How the Requirements Are Implemented
+
+| Requirement | Implementation | Description |
 |---|---|---|
-| Diagnostic test | `diagnostic.py` | One question per concept (7), generated once and kept in `st.session_state` |
-| Concept graph | `concept_graph.py` | 7 concepts + prerequisites; coloured by the student's mastery; **drives question selection** |
-| Learner model | `learner_model.py` | Mastery updates after every answer; weighted by difficulty, confidence-aware learning rate, partial credit for right answer + flawed reasoning |
-| Targeted questions + calibration | `question_generator.py`, `question_bank.py` | 41 curated questions (7 concepts x 4 tiers) + numeric generators for endless variants. Planner picks weakest concept, walks down prerequisites, boosts overdue revisions; difficulty rises after 2 correct, falls after 2 misses |
-| Misconception detection from reasoning | `misconception.py` | 3 layers: optional Claude classification of the written reasoning -> regex rules with negation handling -> misconception tagged on the wrong option chosen. Also flags **right answer, wrong reasoning** |
-| Spaced repetition | `revision_scheduler.py` | 1/2/3/7/14/30-day intervals by mastery; a miss returns tomorrow; shaky reasoning within 2 days |
-| Teacher dashboard | `teacher_dashboard.py` | PIN-gated; class heatmap, auto-generated "biggest gap + what to reteach", % below 50 per concept, students needing support, misconceptions, activity, CSV export |
+| Diagnostic test | `diagnostic.py` | Seven concept-based questions |
+| Concept graph | `concept_graph.py` | Prerequisite relationships and mastery visualization |
+| Learner model | `learner_model.py` | Confidence-aware mastery updates |
+| Adaptive questions | `question_generator.py`, `question_bank.py` | Targeted questions and difficulty calibration |
+| Misconception detection | `misconception.py` | Reasoning analysis, rule-based detection and optional LLM classification |
+| Spaced repetition | `revision_scheduler.py` | Personalized revision intervals |
+| Teacher dashboard | `teacher_dashboard.py` | Class analytics, heatmaps and CSV export |
 
-## 3-minute demo script
-1. **Problem (20s):** generic tutors answer questions but don't know what you understand.
-2. **Live Demo page (60s):** press *Auto-play 10 rounds*. Point at: mastery bars moving, the concept graph recolouring, the detected misconception and its source, "why this question?", difficulty rising after streaks.
-3. **Student flow (40s):** Practice page. Pick a wrong answer and type "the bulb uses up current". Show it flag *Thinks current is 'used up'*, then show the same answer with no reasoning being inferred from the option.
-4. **Teacher Dashboard (50s):** heatmap, the yellow "Biggest class gap" box, the reteach suggestion.
-5. **Close (10s):** prerequisites drive the planner; every answer updates the model.
+## Running Tests
 
-## Tests
+Install pytest:
+
 ```bash
-pip install pytest && pytest -q
+pip install pytest
 ```
-`test_backend.py` covers the learner model, planner, misconceptions and DB migration. `test_ui_smoke.py` runs every page with a stubbed Streamlit.
 
-## Known limits (be upfront with judges)
-- Content covers one chapter (Class 10 Electricity); the bank is hand-written plus parametric numeric generators.
-- Mastery update is a hand-tuned heuristic, not a fitted model (e.g. Bayesian Knowledge Tracing).
-- Rule-based misconception detection only recognises catalogued misconceptions; the LLM layer is optional.
-- There is no real student login, and the teacher PIN is simple.
+Run the test suite:
+
+```bash
+pytest -q
+```
+
+
+## Current Scope and Limitations
+
+- Currently focuses on Class 10 Physics – Electricity.
+- The question bank combines curated questions and parameterized numerical question generators.
+- Mastery calculation uses a heuristic rather than a trained knowledge-tracing model.
+- Misconception detection recognizes catalogued patterns; optional LLM analysis extends this capability.
+- Full student authentication is not yet implemented.
+- The teacher PIN is a basic demonstration-level access control, not production-grade security.
+
+## Future Improvements
+
+- Expand to additional subjects and chapters.
+- Implement Bayesian Knowledge Tracing.
+- Improve misconception detection using more advanced AI models.
+- Introduce secure student authentication.
+- Improve long-term cloud database persistence.
+- Add personalized learning recommendations.
+
+## Project Goal
+
+To move beyond ordinary AI tutoring and build a system that understands student learning patterns, identifies knowledge gaps, and continuously adapts the learning experience.
