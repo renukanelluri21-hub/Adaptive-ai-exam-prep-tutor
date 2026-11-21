@@ -1,0 +1,6 @@
+streamlit>=1.30
+pandas
+plotly
+networkx
+# optional: enables Claude-powered reasoning analysis (also set ANTHROPIC_API_KEY)
+# anthropic
