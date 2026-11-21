@@ -26,7 +26,6 @@ Our solution creates a personalized learning experience using concept mastery tr
 - Pandas
 - Plotly
 - NetworkX
-- Optional Claude API for reasoning classification
 
 ## Installation and Setup
 
