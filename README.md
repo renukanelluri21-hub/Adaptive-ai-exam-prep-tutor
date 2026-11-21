@@ -5,12 +5,10 @@ A tutor that tracks what each student actually understands, finds *why* they go 
 ## Run it
 ```bash
 pip install -r requirements.txt
-python seed_demo_data.py        # optional: a realistic 12-student class for the teacher dashboard
 streamlit run app.py
 ```
 Teacher PIN: `teacher123` (override with the `TEACHER_PIN` environment variable).
-Optional: `pip install anthropic` and set `ANTHROPIC_API_KEY` to add Claude-based reasoning analysis. Without it, the rule-based engine runs.
-Your existing `tutor.db` is migrated automatically.
+existing `tutor.db` is migrated automatically.
 
 ## How each requirement is met
 | Requirement | Where | What it does |
