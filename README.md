@@ -1,5 +1,7 @@
 # Adaptive AI Exam Prep Tutor
 
+🚀 **Live Website:** [Click here to use the Adaptive AI Tutor](https://adaptive-ai-exam-prep-tutor-4vqmdbqxada9vlry8i9ynm.streamlit.app/)
+
 An intelligent, adaptive learning platform that tracks what each student actually understands, identifies why they make mistakes, and determines what they should learn next.
 
 ## Problem
